@@ -3,7 +3,7 @@ variable "AWS_REGION" {
 }
 
 variable "AWS_AVAILABILITY_ZONE" {
-  default = "us-west-2a"
+  default = ["us-west-2a"]
 }
 
 variable "PUBLIC_KEY_PATH" {

@@ -4,7 +4,7 @@ module "vpc" {
 
   name                         = "tf-${var.environment}-vpc"
   cidr                         = var.vpc_cidr
-  azs                          = data.aws_availability_zones.available.names
+  azs                          = var.AWS_AVAILABILITY_ZONE
   public_subnets               = var.vpc_public_subnets
   private_subnets              = var.vpc_private_subnets
   enable_nat_gateway           = true
