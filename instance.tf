@@ -2,7 +2,7 @@ resource "aws_instance" "db2-server-1" {
   ami           = data.aws_ami.rhel_8_7.id
   instance_type = "t3.medium"
   # VPC
-  subnet_id = "${aws_subnet.prod-subnet-public-1.id}"
+  subnet_id = module.vpc.public_subnets[0]
   # Security Group
   vpc_security_group_ids = ["${aws_security_group.allow_tls.id}"]
   # the Public SSH key
@@ -21,7 +21,7 @@ resource "aws_instance" "db2-server-2" {
   ami           = data.aws_ami.rhel_8_7.id
   instance_type = "t3.medium"
   # VPC
-  subnet_id = "${aws_subnet.prod-subnet-public-1.id}"
+  subnet_id = module.vpc.public_subnets[0]
   # Security Group
   vpc_security_group_ids = ["${aws_security_group.allow_tls.id}"]
   # the Public SSH key
@@ -40,7 +40,7 @@ resource "aws_instance" "app-server" {
   ami           = data.aws_ami.rhel_8_7.id
   instance_type = "t3.small"
   # VPC
-  subnet_id = "${aws_subnet.prod-subnet-public-1.id}"
+  subnet_id = module.vpc.public_subnets[0]
   # Security Group
   vpc_security_group_ids = ["${aws_security_group.allow_tls.id}"]
   # the Public SSH key

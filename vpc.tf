@@ -1,19 +1,16 @@
-resource "aws_vpc" "prod-vpc" {
-  cidr_block           = "10.0.0.0/16"
-  enable_dns_support   = "true" #gives you an internal domain name
-  enable_dns_hostnames = "true" #gives you an internal host name
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.18.1"
 
-  tags = {
-    Name = "prod-vpc"
-  }
-}
-
-resource "aws_subnet" "prod-subnet-public-1" {
-    vpc_id = "${aws_vpc.prod-vpc.id}"
-    cidr_block = "10.0.1.0/24"
-    map_public_ip_on_launch = "true" //it makes this a public subnet
-    availability_zone = "${var.AWS_AVAILABILITY_ZONE}"
-    tags = {
-        Name = "prod-subnet-public-1"
-    }
+  name                         = "tf-${var.environment}-vpc"
+  cidr                         = var.vpc_cidr
+  azs                          = data.aws_availability_zones.available.names
+  public_subnets               = var.vpc_public_subnets
+  enable_nat_gateway           = true
+  single_nat_gateway           = true
+  enable_dns_hostnames         = true
+  default_vpc_enable_dns_hostnames =  true
+  default_vpc_enable_dns_support =  true
+  enable_dhcp_options  =  true
+  enable_dns_support  = true
 }

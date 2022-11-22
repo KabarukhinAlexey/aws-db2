@@ -1,14 +1,14 @@
 resource "aws_security_group" "allow_tls" {
   name        = "allow_tls"
   description = "Allow TLS inbound traffic"
-  vpc_id      = aws_vpc.prod-vpc.id
+  vpc_id      = module.vpc.vpc_id
 
   ingress {
     description      = "TLS from VPC"
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
-    cidr_blocks      = [aws_vpc.prod-vpc.cidr_block]
+    cidr_blocks      = [module.vpc.vpc_cidr_block]
   }
 
   egress {
