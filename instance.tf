@@ -32,7 +32,7 @@ resource "aws_instance" "db2-server-2" {
   }
 
   tags = {
-    Name = "db2-server-1"
+    Name = "db2-server-2"
   }
 }
 
